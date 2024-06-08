@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="Raspi Harjo Remote (491a31a6-57bb-4cc0-84a0-ab4f6fc0faaf)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/Datastructures" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
