@@ -23,42 +23,37 @@ void MyGraph::AddNode(int id, int x, int y)
 }
 
 // This function adds an edge to nodes.
-// Seems that two edges can be added to the same two nodes, examples:
-//e 73346 73351 1114
-//e 73351 73346 1114
-// Hoe gaan we daar mee om?
-void MyGraph::AddEdge(int firstNode, int secondNode, int weight)
+void MyGraph::AddEdge(int originNode, int destinationNode, int weight)
 {
     // First check if nodeId1 and nodeId2 exist. They are both required to add the edges to these nodes.
-    if (nodes.find(firstNode) == nodes.end() || nodes.find(secondNode) == nodes.end())
+    if (nodes.find(originNode) == nodes.end() || nodes.find(destinationNode) == nodes.end())
     {
         std::cerr << "When adding an edge either one or both nodes did not exist!" << std::endl;
         return;
     }
 
-    // Now check if the connection between the two nodes already exists. (undirected graph)
-    for (int i = 0; i < nodes[firstNode].nodeEdges.size(); i += 1)
+    // Now check if the connection between the two nodes already exists. (directed graph)
+    for (int i = 0; i < nodes[originNode].nodeEdges.size(); i += 1)
     {
-        // Check if nodeId2 exists in edges connected to nodeId1. In it's nodeId1 or nodeId2 spot, both are possible
-        // depending on the order of adding the nodes to the edge.
-        Edge currentEdge = *nodes[firstNode].nodeEdges[i];
-        if (currentEdge.nodeId2 == secondNode || currentEdge.nodeId1 == secondNode)
+        // Check if destinationNode already exists in edges connected to originNode. If so print an error and move
+        // on
+        if (nodes[originNode].nodeEdges[i]->to == destinationNode)
         {
-            std::cerr << "When adding an edge between two nodes, there was already an edge between them!" << "First Node: " <<  firstNode << " Second Node: " << secondNode << std::endl;
+//            std::cerr << "When adding an edge between two nodes, there was already an edge between them!" << "Origin Node: " <<  originNode << " Destination Node: " << destinationNode << std::endl;
             return;
         }
     }
 
     // Create the new edge
-    Edge newEdge{.nodeId1 = firstNode,
-                 .nodeId2 = secondNode,
+    Edge newEdge{.from = originNode,
+                 .to = destinationNode,
                  .weight = weight};
 
     std::shared_ptr edge = std::make_shared<Edge>(newEdge);
 
     // Now add the edge to both nodes.
-    nodes[firstNode].nodeEdges.push_back(edge);
-    nodes[secondNode].nodeEdges.push_back(edge);
+    nodes[originNode].nodeEdges.push_back(edge);
+    nodes[destinationNode].nodeEdges.push_back(edge);
 }
 
 void MyGraph::PrintNode(int id)
@@ -71,18 +66,9 @@ void MyGraph::PrintNode(int id)
         for (int i = 0; i < nodes[id].nodeEdges.size(); i += 1)
         {
             Edge currentEdge = *nodes[id].nodeEdges[i];
-            Node edgeOtherNode; // The other node that the edge connects to.
-            if (nodes[id].nodeEdges[i]->nodeId1 == id)
-            {
-                edgeOtherNode = nodes[currentEdge.nodeId2];
-            }
-            else
-            {
-                edgeOtherNode = nodes[currentEdge.nodeId1];
-            }
 
             std::cout << "Edge " << i + 1 << ":\t weight: " << currentEdge.weight << std::endl;
-            std::cout << "Connected With Node - id: " << edgeOtherNode.id << " x: " << edgeOtherNode.x << " y: " << edgeOtherNode.y << std::endl << std::endl;
+            std::cout << "Origin Node: " << currentEdge.from << " Destination Node: " << currentEdge.to << std::endl << std::endl;
         }
     }
     else
@@ -126,11 +112,16 @@ void MyGraph::ReadFile(const std::string& filename)
         }
         else // An edge
         {
-            int nodeId1 = std::stoi(splitWords[1]);
-            int nodeId2 = std::stoi(splitWords[2]);
+            int from = std::stoi(splitWords[1]);
+            int to = std::stoi(splitWords[2]);
             int weight = std::stoi(splitWords[3]);
-            AddEdge(nodeId1, nodeId2, weight);
+            AddEdge(from, to, weight);
         }
     }
     file.close();
+}
+
+std::unordered_map<int, Node>& MyGraph::GetNodes()
+{
+    return nodes;
 }

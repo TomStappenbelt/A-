@@ -61,6 +61,12 @@ build CMakeFiles/Datastructures.dir/MyGraph.cpp.obj: CXX_COMPILER__Datastructure
   OBJECT_DIR = CMakeFiles\Datastructures.dir
   OBJECT_FILE_DIR = CMakeFiles\Datastructures.dir
 
+build CMakeFiles/Datastructures.dir/AStar.cpp.obj: CXX_COMPILER__Datastructures_unscanned_Debug C$:/Users/tomst/OneDrive/School/Technische_Informatica/Datastructures/Code/AStar.cpp || cmake_object_order_depends_target_Datastructures
+  DEP_FILE = CMakeFiles\Datastructures.dir\AStar.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Datastructures.dir
+  OBJECT_FILE_DIR = CMakeFiles\Datastructures.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Datastructures
@@ -69,7 +75,7 @@ build CMakeFiles/Datastructures.dir/MyGraph.cpp.obj: CXX_COMPILER__Datastructure
 #############################################
 # Link the executable Datastructures.exe
 
-build Datastructures.exe: CXX_EXECUTABLE_LINKER__Datastructures_Debug CMakeFiles/Datastructures.dir/main.cpp.obj CMakeFiles/Datastructures.dir/MyGraph.cpp.obj
+build Datastructures.exe: CXX_EXECUTABLE_LINKER__Datastructures_Debug CMakeFiles/Datastructures.dir/main.cpp.obj CMakeFiles/Datastructures.dir/MyGraph.cpp.obj CMakeFiles/Datastructures.dir/AStar.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Datastructures.dir

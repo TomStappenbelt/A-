@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Datastructures main.cpp
         MyGraph.cpp
-        MyGraph.h)
+        MyGraph.h
+        AStar.cpp
+        AStar.h)
 
 # Ensure the "maps" directory exists in the source tree
 if(EXISTS "${CMAKE_SOURCE_DIR}/maps/tiny.graph")

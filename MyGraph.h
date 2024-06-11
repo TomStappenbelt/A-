@@ -12,8 +12,8 @@
 
 
 struct Edge{
-    int nodeId1;
-    int nodeId2;
+    int from;
+    int to;
     int weight;
 };
 
@@ -22,7 +22,7 @@ struct Edge{
 // edges to find one for a specific node. This also prevents the need for a separate
 // collection for edges.
 struct Node{
-    int id;
+    int id=-1;
     int x;
     int y;
 
@@ -35,9 +35,11 @@ struct Node{
 class MyGraph {
 public:
     void AddNode(int id, int x, int y);
-    void AddEdge(int firstNode, int secondNode, int weight);
+    void AddEdge(int originNode, int destinationNode, int weight);
     void ReadFile(const std::string& filename);
     void PrintNode(int id);
+
+    std::unordered_map<int, Node>& GetNodes();
 
 private:
     // It could happen that a node is added with a non-sequential ID. This makes checking if a node exists very
